@@ -30,6 +30,8 @@ margin_left = 439.162
 margin_top = 532.601
 margin_right = 587.162
 margin_bottom = 600.601
+custom_fonts/font = ExtResource( 2 )
+text = "BACK"
 __meta__ = {
 "_edit_use_anchors_": false
 }
