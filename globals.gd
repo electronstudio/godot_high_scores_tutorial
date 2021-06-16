@@ -16,8 +16,8 @@ func _ready():
 #	pass
 var score = 0
 
-var scores = [33, 33]
-var names = ["sdf","sadfds"]
+var scores = []
+var names = []
 
 func _init():
 	load_scores()
