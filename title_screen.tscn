@@ -66,4 +66,5 @@ texture = ExtResource( 1 )
 stretch_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HighScoresButton" to="." method="_on_HighScoresButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
