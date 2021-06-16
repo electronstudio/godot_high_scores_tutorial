@@ -9,7 +9,7 @@ func _on_Timer_timeout():
 		get_tree().change_scene("res://gameover.tscn")
 
 func _unhandled_input(event):
-	if event is InputEventKey and not event.echo:
+	if (event is InputEventKey and not event.echo) or (event is InputEventScreenTouch):
 		Globals.score += 1
 		$ScoreLabel.text = "SCORE: "+str(Globals.score)
 		$icon.position.y = Globals.score * 5

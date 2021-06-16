@@ -276,6 +276,11 @@ func _on_LineEdit_text_entered(new_text):
 
 Run the game and check your scores load and save.
 
+## Challenge: Default scores
+
+The first time you play the game, the score table is empty.  Could you add some default scores in the code
+to fill it?
+
 ## Challenge:  Improve the organisation of the code.
 
 Change function to be:

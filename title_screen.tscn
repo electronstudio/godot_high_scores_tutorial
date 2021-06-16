@@ -27,7 +27,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.478431, 0.45098, 1, 1 )
-text = "MY GAME"
+text = "TAP TAP GAME"
 align = 1
 valign = 1
 
