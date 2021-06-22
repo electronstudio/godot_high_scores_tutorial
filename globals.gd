@@ -4,7 +4,9 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+#var public_code = "60d206118f40bb114c4ca743"
+var public_code = "600c00958f40bb2a7019bbe2"
+var private_code = "iRJrbvqSmkykd5aQBcXlAgm6EWSo3SekmWhWF5W-zfkA"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

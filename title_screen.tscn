@@ -22,7 +22,7 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 130.0
+margin_bottom = 103.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
@@ -32,39 +32,49 @@ align = 1
 valign = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
-margin_top = 134.0
+margin_top = 107.0
 margin_right = 1024.0
-margin_bottom = 264.0
+margin_bottom = 210.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
 text = "PLAY"
 
 [node name="HighScoresButton" type="Button" parent="VBoxContainer"]
-margin_top = 268.0
+margin_top = 214.0
 margin_right = 1024.0
-margin_bottom = 398.0
+margin_bottom = 317.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
 text = "HIGH SCORES"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 402.0
+[node name="OnlineHighScoresButton" type="Button" parent="VBoxContainer"]
+margin_top = 321.0
 margin_right = 1024.0
-margin_bottom = 532.0
+margin_bottom = 424.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+text = "ONLINE SCORES"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 428.0
+margin_right = 1024.0
+margin_bottom = 531.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
 text = "QUIT"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-margin_top = 536.0
+margin_top = 535.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 599.0
 texture = ExtResource( 1 )
 stretch_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HighScoresButton" to="." method="_on_HighScoresButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/OnlineHighScoresButton" to="." method="_on_OnlineHighScoresButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

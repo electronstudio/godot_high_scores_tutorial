@@ -20,4 +20,12 @@ func _on_LineEdit_text_entered(new_text):
 	Globals.scores.append(Globals.score)
 	Globals.names.append(new_text)
 	Globals.save_scores()
+	var url = "http://dreamlo.com/lb/"+Globals.private_code+"/add/"
+	url += new_text.percent_encode()+"/"+str(Globals.score)
+	$HTTPRequest.request(url)
+	
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, 
+	body):
 	get_tree().change_scene("res://score_table.tscn")

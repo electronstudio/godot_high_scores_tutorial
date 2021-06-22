@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://online_score_table.gd" type="Script" id=1]
+[ext_resource path="res://font.tres" type="DynamicFont" id=2]
+
+[node name="OnlineScoreTable" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="Label" parent="."]
+margin_left = 674.005
+margin_top = 1.33484
+margin_right = 892.005
+margin_bottom = 484.335
+custom_fonts/font = ExtResource( 2 )
+
+[node name="Names" type="Label" parent="."]
+margin_left = 57.3484
+margin_top = 4.0
+margin_right = 631.348
+margin_bottom = 508.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 439.162
+margin_top = 532.601
+margin_right = 587.162
+margin_bottom = 600.601
+custom_fonts/font = ExtResource( 2 )
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
