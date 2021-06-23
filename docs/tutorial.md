@@ -96,14 +96,22 @@ We need somewhere for the player to enter his name, so let's make a 'Game Over' 
    
 ![Select User Interface for root node](userinterface.png)
 
-3. Rename the root node to `gameover`.
+3. Right click the root node `Control` and rename it to `gameover`.
 
-4. Save the scene as `gameover.tscn`.
+4. Press ctrl+S keys and Save the scene as `gameover.tscn`.
 
 5. Add a **Label** child node to the root node.
-    * In the Inspector, enter into the *Text* field: **GAMEOVER Your score is**.
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
-    font field.
+   * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+   font field.
+    * In the Inspector, enter into the *Text* field
+    
+```gdscript
+GAMEOVER
+
+Your score is
+```      
+
+
       
 6. Add a second **Label** child node to the root node.
     * Rename it to `score`.
@@ -144,9 +152,9 @@ var score=0
 
 4. To make this accessible from anywhere:
 
- * click *Project* menu, then *Project Settings*, then *AutoLoad*.
+ * Click *Project* menu, then *Project Settings*, then *AutoLoad*.
  * Click the small folder icon and select the *globals.gd* script.  Press *open*.
- * Press *Add*.
+ * Press *Add*.  Then *Close*.
 
 5. Now go back the *game.gd* script and delete the line containing the score variable (line 5).  Then change all the other references from `score` to `Globals.score`.
 
@@ -170,10 +178,10 @@ func _unhandled_input(event):
       $icon.position.y = Globals.score * 5
 ```
 
-You don't need to type all that, you only need to make 4 edits.  That's the complete file you should have after your changes.
+You don't need to type all that, you only need to make 4 edits.  But that's the complete file you should have after your changes.
 
 5. Let's see if we can access the score from the gameover screen now.  Go to the *gameover.tscn* scene.  Right click on the root node and
-*attach script*.  Edit the script so that the ready function looks like this:
+*attach script*.  Press *create*.  Edit the script so that the ready function looks like this:
 
 ```gdscript
 func _ready():
@@ -351,7 +359,8 @@ Currently, the scores are not displayed in the correct order.  We need to sort t
 
 Godot has a built-in sort function, so we could call `scores.sort()`, but this would only sort the scores and not the names.
 The way a professional coder would deal with this would probably be to store the name and score in an object and write a comparator function.
-However, it's more educational (and simpler) for us to just write our own sort function.
+However, it's more educational (and simpler) for us to just write our own sort function.  (Not to mention that Godot's support
+for object-oriented programming is frustratingly rudimentary!)
 
 This is a famous algorithm called [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort).
 
@@ -385,7 +394,7 @@ func save_scores():
 
 ## Challenge: Sorting
 
-This bubble sort is not optimized.  Make it `return` as soon as it completes a pass with no swaps.
+This bubble sort is not optimized.  Make it *return* as soon as it completes a pass with no swaps.
 
 Implement some better sorting algorithms, such as [Merge Sort](https://en.wikipedia.org/wiki/Merge_sort)
 and [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
@@ -400,20 +409,37 @@ What do you do when there are too many scores to fit on the screen?  Delete the 
 
 # Online leaderboards
 
-Usually I would not suggest relying on third party services for your game.
+Saving to a local file is very useful, but if you want to compare your scores with your friends?  You can't read files saved to your friends'
+computers, so instead you need to store all the scores on a computer on the Internet.  This is called a *server*.  Then as well as saving
+your score locally, you also send it to the server, like this:
+
+DIAGRAM
+
+The server saves your score along with all the scores of everybody else.  Then when you want to display the scores, you
+send a request to the server to retrieve them:
+
+DIAGRAM
+
+Usually I would not suggest relying on third party servers for your game.
 
 > If you use a third party leaderboard service, what will the effect on your game be if it is not running?
 > Do you think it will still be running five years from now?
 
-However the *dreamlo* service is very simple, so if it does stop running it will not be difficult for us to create
-our own replacement service.  (That would would be the topic for another tutorial.  For now we will use *dreamlo*).
+However the *dreamlo* server is very simple, so if it does stop running it will not be difficult for us to create
+our own replacement.  (That would would be the topic for another tutorial.  For now we will use *dreamlo*).
+
+## Dreamlo sign-up
 
 In your web browser, go to the website [dreamlo.com](http://dreamlo.com/).
 
-Click **Get yours now**.
+![dreamlo website](dreamlo1.png){width=50%}
 
-You will be given a private URL.  Copy and paste it into a document, or add it to your bookmarks.  You must not lose
-it and you must not give it to anyone else.
+Click **Get Yours Now** button.
+
+![You will be given a private URL.  Copy and paste it into a document, or add it to your bookmarks.  You must not lose
+it and you must not give it to anyone else.](dreamlo2.png){width=50%}
+
+
 
 In Godot, open *globals.gd*.  Add these two variables, but **rather than using my values, copy and paste the codes given
 to you on the left side of the web page.**
@@ -423,6 +449,46 @@ var public_code = "60d206118f40bb114c4ca743"
 var private_code = "iRJrbvqSmkykd5aQBcXlAgm6EWSo3SekmWhWF5W-zfkA"
 ```
 
+## Submitting scores manually
+
+Copy this URL into a new web browser window and press enter, but replace the code with your *private* code.  (You can see this example on the dreamlo page with the correct
+code already filled in)
+
+    http://dreamlo.com/lb/Sv3NeBzS0016IwMfZjGudTESQhkHwEpQ/add/Carmine/100
+
+IMAGE
+
+You should get a response that says *OK* or similar.  You have submitted the score of 100 for player Carmine.
+Go ahead and submit a few more scores for other players.
+
+To test if it worked, copy this URL and press enter but replace the code with your *private* code.  (You can see this example on the dreamlo page with the correct
+code already filled in.)
+
+    http://dreamlo.com/lb/60d341098f40bb114c4e34b2/json
+
+You will get a response that looks something like this:
+
+```json
+{"dreamlo":
+  {"leaderboard":
+    {"entry":[
+      {"name":"Carmine","score":"100","seconds":"0"},
+      {"name":"Bob","score":"10","seconds":"0"}
+    ]}
+  }
+}
+```
+
+IMAGE
+
+This is just plain text, but it is formatted in a format called *JSON* which makes it easy for us to write a program
+that processes.  The names of the objects are important and we will need them later.
+
+## Submitting scores programatically
+
+1. Open the *gameover.tscn* scene.  Right click on the root node and add a child node.  Choose *HTTPRequest* as the kind of node.
+
+2. Open *gameover.gd* script and change the *on_LineEdit_text_entered* function so it looks like this (3 new lines):
 
 ```gdscript
 func _on_LineEdit_text_entered(new_text):
@@ -435,29 +501,70 @@ func _on_LineEdit_text_entered(new_text):
 	get_tree().change_scene("res://score_table.tscn")
 ```
 
-If you run this, play the game and submit a score, it will appear to work.  However networking coding is tricksy.
+3. If you run this, play the game and submit a score, it will appear to work.  However networking coding is tricksy.
 
-In your web browser, open the URL that will get you your data in JSON format.  (For me this is
-*http://dreamlo.com/lb/60d206118f40bb114c4ca743/json* but your code will be different.)
+   In your web browser, open the URL that you used previously to get the high score table in JSON format.  (For me this is
+*http://dreamlo.com/lb/60d206118b114c4ca743/json* but your public code will be different.)
 
-You will probably find the score was not added.  Why not?  Because we changed the scene without waiting for the network request
-to finish.  How long do we have to wait?  It depends on the network speed.  So we use a *callback function* that is called
+   You will probably find the score was not added.  Why not?  Because we changed the scene without waiting for the network request
+to finish.  How long do we have to wait?  It depends on the network speed.  So we will next use a *callback function* that is called
 for us by Godot when the request is completed.
+
+4. **Delete** this line from the *on_LineEdit_text_entered* function.
+
+```gdscript
+	get_tree().change_scene("res://score_table.tscn")
+```
+
+5. Click on the *HTTPRequest* node.  Click *Node* next to *Inspector* on the right to view the *Signals*.  Double click the *request_complated* signal.
+Press *connect*.
+   
+Edit the function it generates to look like this:
 
 ```gdscript
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	get_tree().change_scene("res://score_table.tscn")
 ```
 
+6. Play the game, submit a score, and check it is added to dreamlo's JSON data in the web browser.
 
 
+## Downloading the scores programatically
 
+1. Create a new scene.
 
+2. Select *User Interface* for  the root node.
 
+3. Rename the root node to `OnlineScoreTable`.
 
+4. Save the scene as `online_score_table.tscn`.
 
+5. Add a *Label* child node to the root node.
+    * Rename it to `Names`
+    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+      font field.
 
-Edit the function to look like this:
+5. Add a *Label* child node to the root node.
+    * Rename it to `Scores`
+    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+      font field.
+
+6. Position the two labels side by side like this:
+
+![](tablenames.png){ width=50% }
+![](tablescores.png){ width=50% }
+
+7. Right click on the root node and *Attach script*.  Press *create*.  Edit the ready function so it looks like this:
+
+```gdscript
+func _ready():
+	$HTTPRequest.request("http://dreamlo.com/lb/"+Globals.public_code+"/json")
+```
+
+8. Click on the *HTTPRequest* node.  Click *Node* next to *Inspector* on the right to view the *Signals*.  Double click the *request_complated* signal.
+      Press *connect*.
+
+Edit the function it generates to look like this:
 
 ```gdscript
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
@@ -468,7 +575,33 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		$Scores.text += i["score"] + '\n'
 ```
 
-You can run this, and it may work, but it may also crash.
+   Note how we needed the field names from the JSON output in order to tell Godot how to pull out the data from
+the text and put it in a list for us.
+
+8. Go to the *title_screen.tscn* scene.
+
+9. Right click on the *VBoxContainer* node and add a *Button* child node.
+    * Rename it to `OnlineHighScoreButton`.
+    * In the Inspector, enter into the *Text* field: **ONLINE SCORES**.
+    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+      font field.
+
+
+10. Click on *Node* to the right of the *Inspector* to view the *Signals*.  Double click on `pressed`.  Press `connect`.
+
+Edit the function that is created to look like this:
+
+```gdscript
+func _on_OnlineHighScoresButton_pressed():
+	get_tree().change_scene("res://online_score_table.tscn")
+``` 
+
+8. Run the game and test.
+
+
+## Error handling
+
+When you run this it may work, but it may also crash.
 
 Why?  Because there are several possible responses the server could send you, and you don't know which you are going to get.
 
@@ -518,3 +651,5 @@ if scores is Dictionary:
 ```
 
 Add additional error checks.  For example, what would happen if the JSON did not contain an entry for `leaderboard`?
+
+Dreamlo also allows a time to be submitted along with the score.  This is useful for games with a timer.  Submit times for your game.
