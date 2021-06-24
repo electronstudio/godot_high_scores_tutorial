@@ -14,6 +14,12 @@ listings-no-page-break: true
 footnotes-pretty: true
 colorlinks: true
 links-as-notes: true
+header-includes:
+  - \definecolor{lg}{HTML}{F7F7F7}
+  - \usepackage{listings}
+  - \lstset{basicstyle=\ttfamily\small, backgroundcolor=\color{lg}}
+  - \newcommand{\CodeEmphasis}[1]{\textcolor{red}{\bfseries{#1}}}
+  - \newcommand{\CodeEmphasisLine}[1]{\textcolor{red}{\bfseries{#1}}}
 ...
 # High Score Tables
 
@@ -92,7 +98,7 @@ We need somewhere for the player to enter his name, so let's make a 'Game Over' 
 
 1. Create a new scene. ![newscene](newscene.png)
    
-2. Select *User Interface* for  the root node (or *2D Scene*, it doesn't make much difference for this.)
+2. Select *User Interface* for  the root node.
    
 ![Select User Interface for root node](userinterface.png)
 
@@ -105,7 +111,7 @@ We need somewhere for the player to enter his name, so let's make a 'Game Over' 
    font field.
     * In the Inspector, enter into the *Text* field
     
-```gdscript
+```{emphasize=1-3}
 GAMEOVER
 
 Your score is
@@ -116,11 +122,11 @@ Your score is
 6. Add a second **Label** child node to the root node.
     * Rename it to `score`.
     * In the Inspector, enter into the *Text* field: **0**.
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, click *Custom Fonts* and then drag the **font.tres** file from the FileSystem (bottom left of screen) into the **[empty]**
       font field.
       
 7. Add a **LineEdit** child node to the root node.
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, click *Custom Fonts* and then drag the **font.tres** file from the FileSystem (bottom left of screen) into the **[empty]**
       font field.
 
 8. Drag things around until it looks something like this: 
@@ -181,7 +187,7 @@ func _unhandled_input(event):
 You don't need to type all that, you only need to make 4 edits.  But that's the complete file you should have after your changes.
 
 5. Let's see if we can access the score from the gameover screen now.  Go to the *gameover.tscn* scene.  Right click on the root node and
-*attach script*.  Press *create*.  Edit the script so that the ready function looks like this:
+*attach script*.  Press *create*.  Edit ready function (delete the `pass`) so that it looks like this:
 
 ```gdscript
 func _ready():
@@ -224,14 +230,14 @@ func _on_LineEdit_text_entered(new_text):
 
 4. Save the scene as `score_table.tscn`.
 
-5. Add a *Label* child node to the root node.
+5. Add a **Label** child node to the root node.
    * Rename it to `Names`
-   * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+   * In the Inspector, click *Custom Fonts* and then drag the **font.tres** file from the FileSystem (bottom left of screen) into the **[empty]**
      font field.
 
-5. Add a *Label* child node to the root node.
+5. Add a **Label** child node to the root node.
     * Rename it to `Scores`
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, click *Custom Fonts* and then drag the **font.tres** file from the FileSystem (bottom left of screen) into the **[empty]**
       font field.
       
 6. Position the two labels side by side like this:
@@ -239,7 +245,7 @@ func _on_LineEdit_text_entered(new_text):
 ![](tablenames.png){ width=50% }
 ![](tablescores.png){ width=50% }
 
-7. Right click on the root node and *Attach script*.  Press *create*.  Edit the ready function so it looks like this:
+7. Right click on the root node and *Attach script*.  Press *create*.  Edit the *ready* function so that it looks like this:
 
 ```gdscript
 func _ready():
@@ -258,27 +264,27 @@ navigation.
 
 1. Open the *score_table.tcns* scene.
 
-2. Add a *Button* child node to the root node.
+2. Add a **Button** child node to the root node.
   * Rename it to `BackButton`
     In the Inspector set the *Text* to `Back`.
-  * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+  * In the Inspector, click *Custom Fonts* and then drag the **font.tres** file from the FileSystem (bottom left of screen) into the **[empty]**
     font field. 
 
-3. Click on *Node* to the right of the *Inspector* to view the *Signals*.  Double click on `pressed`.  Press `connect`.
+3. Click on *Node* to the right of the *Inspector* to view the *Signals*.  Double click on **pressed**.  Press **connect**.
 
-4. Edit the function so it looks like this:
+4. Edit the function so that it looks like this:
 
 ```gdscript
 func _on_BackButton_pressed():
    get_tree().change_scene("res://title_screen.tscn")
 ```
 
-5. Now go to the `title_screen.tscn` scene.
+5. Now go to the *title_screen.tscn* scene.
 
 6. Click on the `HighScoresButton` node.  Click on `Node` to the right of the `Inspector` to view the `Signals`.
 Double click on `pressed`.  Press `connect`.
 
-7. Edit the function so it looks like this:
+7. Edit the function so that it looks like this:
 
 ```gdscript
 func _on_HighScoresButton_pressed():
@@ -289,7 +295,7 @@ func _on_HighScoresButton_pressed():
 
 ## Challenge: fix the bug
 
-We have accidently introduced a bug into the game that happens when you play two or more games in a row without quitting.  What is the bug?
+We have accidentally introduced a bug into the game that happens when you play two or more games in a row without quitting.  What is the bug?
 
 How can you fix it?
 
@@ -323,10 +329,9 @@ func load_scores():
 ```
 
 The first time we run the game there will be no score file, so we will we print an error, but this is OK, because
-it will be created when we save the scores.  To do this, edit *gameover.gd* and insert a new line so your function looks like
-this:
+it will be created when we save the scores.  To do this, edit *gameover.gd*,  and insert the one new line highlighted below:
 
-```gdscript
+```{emphasize=4-4}
 func _on_LineEdit_text_entered(new_text):
 	Globals.scores.append(Globals.score)
 	Globals.names.append(new_text)
@@ -341,7 +346,7 @@ Run the game and check your scores load and save.
 The first time you play the game, the score table is empty.  Could you add some default scores in the code
 to fill it?
 
-## Challenge:  Improve the organisation of the code.
+## Advanced Challenge:  Improve the organisation of the code.
 
 Change the above function to be:
 
@@ -352,6 +357,9 @@ func _on_LineEdit_text_entered(name):
 ```
 
 Then write the `add_score` function in `globals.gd` to make this work.
+
+(If you attempt this challenge but do not complete it, remember to undo the changes you made to
+the *on_LineEdit_text_entered* function.)
 
 ## Sorting the scores
 
@@ -379,9 +387,9 @@ func bubble_sort():
 				names[i+1] = temp
 ```
 
-Call it from an appropriate place, e.g. you could edit *save_scores* function so that it sorts every time it saves:
+Edit the *save_scores* function so that it sorts every time it saves (new line highlighted)
 
-```gdscript
+```gdscript{emphasize=2-2}
 func save_scores():
 	bubble_sort()
 	var file = File.new()
@@ -529,7 +537,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 6. Play the game, submit a score, and check it is added to dreamlo's JSON data in the web browser.
 
 
-## Downloading the scores programatically
+## Downloading the scores programmatically
 
 1. Create a new scene.
 
@@ -558,7 +566,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 
 ```gdscript
 func _ready():
-	$HTTPRequest.request("http://dreamlo.com/lb/"+Globals.public_code+"/json")
+  $HTTPRequest.request("http://dreamlo.com/lb/"+Globals.public_code+"/json")
 ```
 
 8. Click on the *HTTPRequest* node.  Click *Node* next to *Inspector* on the right to view the *Signals*.  Double click the *request_complated* signal.
