@@ -312,9 +312,13 @@
 <p>What do you do when there are too many scores to fit on the screen? Delete the lowest ones? Or provide buttons to scroll up and down?</p>
 <h1 data-number="2" id="online-leaderboards"><span class="header-section-number">2</span> Online leaderboards</h1>
 <p>Saving to a local file is very useful, but if you want to compare your scores with your friends? You can’t read files saved to your friends’ computers, so instead you need to store all the scores on a computer on the Internet. This is called a <em>server</em>. Then as well as saving your score locally, you also send it to the server, like this:</p>
-<p>DIAGRAM</p>
+<figure>
+<img src="server1.png" style="width:50.0%" alt="" /><figcaption>Sending the high score</figcaption>
+</figure>
 <p>The server saves your score along with all the scores of everybody else. Then when you want to display the scores, you send a request to the server to retrieve them:</p>
-<p>DIAGRAM</p>
+<figure>
+<img src="server2.png" style="width:50.0%" alt="" /><figcaption>Requesting the high scores</figcaption>
+</figure>
 <p>Usually I would not suggest relying on third party servers for your game.</p>
 <blockquote>
 <p>If you use a third party leaderboard service, what will the effect on your game be if it is not running? Do you think it will still be running five years from now?</p>
@@ -323,110 +327,113 @@
 <h2 data-number="2.1" id="dreamlo-sign-up"><span class="header-section-number">2.1</span> Dreamlo sign-up</h2>
 <p>In your web browser, go to the website <a href="http://dreamlo.com/">dreamlo.com</a>.</p>
 <figure>
-<img src="dreamlo1.png" style="width:50.0%" alt="" /><figcaption>dreamlo website</figcaption>
+<img src="dreamlo1.png" style="width:70.0%" alt="" /><figcaption>dreamlo website</figcaption>
 </figure>
 <p>Click <strong>Get Yours Now</strong> button.</p>
 <figure>
-<img src="dreamlo2.png" style="width:50.0%" alt="" /><figcaption>You will be given a private URL. Copy and paste it into a document, or add it to your bookmarks. You must not lose it and you must not give it to anyone else.</figcaption>
+<img src="dreamlo2.png" style="width:70.0%" alt="" /><figcaption>You will be given a private URL. Copy and paste it into a document, or add it to your bookmarks. You must not lose it and you must not give it to anyone else.</figcaption>
 </figure>
 <p>In Godot, open <em>globals.gd</em>. Add these two variables, but <strong>rather than using my values, copy and paste the codes given to you on the left side of the web page.</strong></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">var</span> public_code <span class="op">=</span> <span class="st">&quot;60d206118f40bb114c4ca743&quot;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">var</span> private_code <span class="op">=</span> <span class="st">&quot;iRJrbvqSmkykd5aQBcXlAgm6EWSo3SekmWhWF5W-zfkA&quot;</span></span></code></pre></div>
 <h2 data-number="2.2" id="submitting-scores-manually"><span class="header-section-number">2.2</span> Submitting scores manually</h2>
-<p>Copy this URL into a new web browser window and press enter, but replace the code with your <em>private</em> code. (You can see this example on the dreamlo page with the correct code already filled in)</p>
+<p>Copy this URL into a new web browser window and press enter, but replace the code with your <em>private</em> code. (You can see this example on your private dreamlo page with the correct code already filled in)</p>
 <pre><code>http://dreamlo.com/lb/Sv3NeBzS0016IwMfZjGudTESQhkHwEpQ/add/Carmine/100</code></pre>
-<p>IMAGE</p>
+<p><img src="dreamlo3.png" style="width:75.0%" /></p>
 <p>You should get a response that says <em>OK</em> or similar. You have submitted the score of 100 for player Carmine. Go ahead and submit a few more scores for other players.</p>
 <p>To test if it worked, copy this URL and press enter but replace the code with your <em>private</em> code. (You can see this example on the dreamlo page with the correct code already filled in.)</p>
 <pre><code>http://dreamlo.com/lb/60d341098f40bb114c4e34b2/json</code></pre>
 <p>You will get a response that looks something like this:</p>
+<p><img src="dreamlo4.png" style="width:75.0%" /></p>
+<p>Here it is with nicer indentation:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="fu">{</span><span class="dt">&quot;dreamlo&quot;</span><span class="fu">:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>  <span class="fu">{</span><span class="dt">&quot;leaderboard&quot;</span><span class="fu">:</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>    <span class="fu">{</span><span class="dt">&quot;entry&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Carmine&quot;</span><span class="fu">,</span><span class="dt">&quot;score&quot;</span><span class="fu">:</span><span class="st">&quot;100&quot;</span><span class="fu">,</span><span class="dt">&quot;seconds&quot;</span><span class="fu">:</span><span class="st">&quot;0&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Bob&quot;</span><span class="fu">,</span><span class="dt">&quot;score&quot;</span><span class="fu">:</span><span class="st">&quot;10&quot;</span><span class="fu">,</span><span class="dt">&quot;seconds&quot;</span><span class="fu">:</span><span class="st">&quot;0&quot;</span><span class="fu">}</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>    <span class="ot">]</span><span class="fu">}</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>  <span class="fu">}</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
-<p>IMAGE</p>
-<p>This is just plain text, but it is formatted in a format called <em>JSON</em> which makes it easy for us to write a program that processes. The names of the objects are important and we will need them later.</p>
-<h2 data-number="2.3" id="submitting-scores-programatically"><span class="header-section-number">2.3</span> Submitting scores programatically</h2>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>    <span class="fu">{</span><span class="dt">&quot;entry&quot;</span><span class="fu">:</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>      <span class="ot">[</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>        <span class="fu">{</span><span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Carmine&quot;</span><span class="fu">,</span><span class="dt">&quot;score&quot;</span><span class="fu">:</span><span class="st">&quot;100&quot;</span><span class="fu">,</span><span class="dt">&quot;seconds&quot;</span><span class="fu">:</span><span class="st">&quot;0&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>        <span class="fu">{</span><span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Bob&quot;</span><span class="fu">,</span><span class="dt">&quot;score&quot;</span><span class="fu">:</span><span class="st">&quot;10&quot;</span><span class="fu">,</span><span class="dt">&quot;seconds&quot;</span><span class="fu">:</span><span class="st">&quot;0&quot;</span><span class="fu">}</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>      <span class="ot">]</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>    <span class="fu">}</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>  <span class="fu">}</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
+<p>This is just plain text, but it is formatted in a format called <em>JSON</em> which makes it easy for us to write a program that processes. The names of the objects are important and we will need them later. Also note that curly brackets mean objects and square brackets mean lists/arrays.</p>
+<h2 data-number="2.3" id="submitting-scores-programmatically"><span class="header-section-number">2.3</span> Submitting scores programmatically</h2>
 <ol type="1">
-<li><p>Open the <em>gameover.tscn</em> scene. Right click on the root node and add a child node. Choose <em>HTTPRequest</em> as the kind of node.</p></li>
-<li><p>Open <em>gameover.gd</em> script and change the <em>on_LineEdit_text_entered</em> function so it looks like this (3 new lines):</p></li>
+<li><p>Open the <strong>gameover.tscn</strong> scene. Right click on the root node and add a child node. Choose <strong>HTTPRequest</strong> as the kind of node.</p></li>
+<li><p>Open <strong>gameover.gd</strong> script and change the <strong>on_LineEdit_text_entered</strong> function so it looks like this (3 new lines):</p></li>
 </ol>
-<div class="sourceCode" id="cb19"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_LineEdit_text_entered</span>(new_text):</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>    Globals.scores.<span class="fu">append</span>(Globals.score)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>    Globals.names.<span class="fu">append</span>(new_text)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>    Globals.<span class="fu">save_scores</span>()</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>    <span class="kw">var</span> url <span class="op">=</span> <span class="st">&quot;http://dreamlo.com/lb/&quot;</span><span class="op">+</span>Globals.private_code<span class="op">+</span><span class="st">&quot;/add/&quot;</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>    url <span class="op">+=</span> new_text.<span class="fu">percent_encode</span>()<span class="op">+</span><span class="st">&quot;/&quot;</span><span class="op">+</span><span class="bu">str</span>(Globals.score)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>    <span class="va">$HTTPRequest</span>.<span class="fu">request</span>(url)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://score_table.tscn&quot;</span>)</span></code></pre></div>
+<pre><code>func _on_LineEdit_text_entered(new_text):
+    Globals.scores.append(Globals.score)
+    Globals.names.append(new_text)
+    Globals.save_scores()
+<em class="block">    var url = &quot;http://dreamlo.com/lb/&quot;+Globals.private_code+&quot;/add/&quot;</em>
+<em class="block">    url += new_text.percent_encode()+&quot;/&quot;+str(Globals.score)</em>
+<em class="block">    $HTTPRequest.request(url)</em>
+    get_tree().change_scene(&quot;res://score_table.tscn&quot;)</code></pre>
 <ol start="3" type="1">
 <li><p>If you run this, play the game and submit a score, it will appear to work. However networking coding is tricksy.</p>
 <p>In your web browser, open the URL that you used previously to get the high score table in JSON format. (For me this is <em>http://dreamlo.com/lb/60d206118b114c4ca743/json</em> but your public code will be different.)</p>
 <p>You will probably find the score was not added. Why not? Because we changed the scene without waiting for the network request to finish. How long do we have to wait? It depends on the network speed. So we will next use a <em>callback function</em> that is called for us by Godot when the request is completed.</p></li>
-<li><p><strong>Delete</strong> this line from the <em>on_LineEdit_text_entered</em> function.</p></li>
+<li><p><strong>DELETE</strong> this line from the <strong>on_LineEdit_text_entered</strong> function.</p></li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://score_table.tscn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://score_table.tscn&quot;</span>)</span></code></pre></div>
 <ol start="5" type="1">
-<li>Click on the <em>HTTPRequest</em> node. Click <em>Node</em> next to <em>Inspector</em> on the right to view the <em>Signals</em>. Double click the <em>request_complated</em> signal. Press <em>connect</em>.</li>
+<li>Click on the <strong>HTTPRequest</strong> node. Click <em>Node</em> next to <em>Inspector</em> on the right to view the <strong>Signals</strong>. Double click the <strong>request_complated</strong> signal. Press <em>connect</em>.</li>
 </ol>
 <p>Edit the function it generates to look like this:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://score_table.tscn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://score_table.tscn&quot;</span>)</span></code></pre></div>
 <ol start="6" type="1">
 <li>Play the game, submit a score, and check it is added to dreamlo’s JSON data in the web browser.</li>
 </ol>
 <h2 data-number="2.4" id="downloading-the-scores-programmatically"><span class="header-section-number">2.4</span> Downloading the scores programmatically</h2>
 <ol type="1">
 <li><p>Create a new scene.</p></li>
-<li><p>Select <em>User Interface</em> for the root node.</p></li>
+<li><p>Select <strong>User Interface</strong> for the root node.</p></li>
 <li><p>Rename the root node to <code>OnlineScoreTable</code>.</p></li>
 <li><p>Save the scene as <code>online_score_table.tscn</code>.</p></li>
-<li><p>Add a <em>Label</em> child node to the root node.</p>
+<li><p>Add a <strong>Label</strong> child node to the root node.</p>
 <ul>
 <li>Rename it to <code>Names</code></li>
-<li>In the Inspector, click <em>Custom Fonts</em> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
+<li>In the Inspector, click <strong>Custom Fonts</strong> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
 </ul></li>
-<li><p>Add a <em>Label</em> child node to the root node.</p>
+<li><p>Add a <strong>Label</strong> child node to the root node.</p>
 <ul>
 <li>Rename it to <code>Scores</code></li>
-<li>In the Inspector, click <em>Custom Fonts</em> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
+<li>In the Inspector, click <strong>Custom Fonts</strong> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
 </ul></li>
 <li><p>Position the two labels side by side like this:</p></li>
 </ol>
 <p><img src="tablenames.png" style="width:50.0%" /> <img src="tablescores.png" style="width:50.0%" /></p>
 <ol start="7" type="1">
-<li>Right click on the root node and <em>Attach script</em>. Press <em>create</em>. Edit the ready function so it looks like this:</li>
+<li>Right click on the root node and <strong>Attach script</strong>. Press <strong>create</strong>. Edit the ready function so it looks like this:</li>
 </ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">func</span> <span class="bu">_ready</span>():</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>  <span class="va">$HTTPRequest</span>.<span class="fu">request</span>(<span class="st">&quot;http://dreamlo.com/lb/&quot;</span><span class="op">+</span>Globals.public_code<span class="op">+</span><span class="st">&quot;/json&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">func</span> <span class="bu">_ready</span>():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>  <span class="va">$HTTPRequest</span>.<span class="fu">request</span>(<span class="st">&quot;http://dreamlo.com/lb/&quot;</span><span class="op">+</span>Globals.public_code<span class="op">+</span><span class="st">&quot;/json&quot;</span>)</span></code></pre></div>
 <ol start="8" type="1">
-<li>Click on the <em>HTTPRequest</em> node. Click <em>Node</em> next to <em>Inspector</em> on the right to view the <em>Signals</em>. Double click the <em>request_complated</em> signal. Press <em>connect</em>.</li>
+<li>Click on the <strong>HTTPRequest</strong> node. Click <em>Node</em> next to <em>Inspector</em> on the right to view the <strong>Signals</strong>. Double click the <strong>request_complated</strong> signal. Press <strong>connect</strong>.</li>
 </ol>
 <p>Edit the function it generates to look like this:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a>    <span class="kw">var</span> json  <span class="op">=</span> JSON.<span class="fu">parse</span>(body.<span class="fu">get_string_from_utf8</span>())</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>    <span class="kw">var</span> scores <span class="op">=</span> json.result[<span class="st">&quot;dreamlo&quot;</span>][<span class="st">&quot;leaderboard&quot;</span>][<span class="st">&quot;entry&quot;</span>]</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> scores:</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>        <span class="va">$Names</span>.text <span class="op">+=</span> i[<span class="st">&quot;name&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>        <span class="va">$Scores</span>.text <span class="op">+=</span> i[<span class="st">&quot;score&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>    <span class="kw">var</span> json  <span class="op">=</span> JSON.<span class="fu">parse</span>(body.<span class="fu">get_string_from_utf8</span>())</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>    <span class="kw">var</span> scores <span class="op">=</span> json.result[<span class="st">&quot;dreamlo&quot;</span>][<span class="st">&quot;leaderboard&quot;</span>][<span class="st">&quot;entry&quot;</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> scores:</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a>        <span class="va">$Names</span>.text <span class="op">+=</span> i[<span class="st">&quot;name&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>        <span class="va">$Scores</span>.text <span class="op">+=</span> i[<span class="st">&quot;score&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
 <p>Note how we needed the field names from the JSON output in order to tell Godot how to pull out the data from the text and put it in a list for us.</p>
 <ol start="8" type="1">
-<li><p>Go to the <em>title_screen.tscn</em> scene.</p></li>
-<li><p>Right click on the <em>VBoxContainer</em> node and add a <em>Button</em> child node.</p>
+<li><p>Go to the <strong>title_screen.tscn</strong> scene.</p></li>
+<li><p>Right click on the <strong>VBoxContainer</strong> node and add a <strong>Button</strong> child node.</p>
 <ul>
 <li>Rename it to <code>OnlineHighScoreButton</code>.</li>
-<li>In the Inspector, enter into the <em>Text</em> field: <strong>ONLINE SCORES</strong>.</li>
-<li>In the Inspector, click <em>Custom Fonts</em> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
+<li>In the Inspector, enter into the <strong>Text</strong> field: <strong>ONLINE SCORES</strong>.</li>
+<li>In the Inspector, click <strong>Custom Fonts</strong> and then drag the <code>font.tres</code> file from the FileSystem (bottom left of screen) into the <code>[empty]</code> font field.</li>
 </ul></li>
-<li><p>Click on <em>Node</em> to the right of the <em>Inspector</em> to view the <em>Signals</em>. Double click on <code>pressed</code>. Press <code>connect</code>.</p></li>
+<li><p>Click on <em>Node</em> to the right of the <em>Inspector</em> to view the <strong>Signals</strong>. Double click on <strong>pressed</strong>. Press <strong>connect</strong>.</p></li>
 </ol>
 <p>Edit the function that is created to look like this:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_OnlineHighScoresButton_pressed</span>():</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://online_score_table.tscn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_OnlineHighScoresButton_pressed</span>():</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a>    <span class="fu">get_tree</span>().<span class="fu">change_scene</span>(<span class="st">&quot;res://online_score_table.tscn&quot;</span>)</span></code></pre></div>
 <ol start="8" type="1">
 <li>Run the game and test.</li>
 </ol>
@@ -443,23 +450,23 @@
 <p>Ideally we would write code to handle all of these posibilities, so that our game doesn’t crash unexpectedly.</p>
 <p>For now, we are just going to do three basic error checks and <code>return</code> if there is an error. Note that we consider there being one single score to be an error, so <strong>you must submit two or more scores before this will display anything on the screen</strong>.</p>
 <p>Edit the function so that it looks like this:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>    <span class="cf">if</span> result <span class="op">!=</span> HTTPRequest.RESULT_SUCCESS:</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>        <span class="cf">return</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>    <span class="kw">var</span> json  <span class="op">=</span> JSON.<span class="fu">parse</span>(body.<span class="fu">get_string_from_utf8</span>())</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a>    <span class="cf">if</span> json.error <span class="op">!=</span> OK:</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a>        <span class="cf">return</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a>    <span class="kw">var</span> scores <span class="op">=</span> json.result[<span class="st">&quot;dreamlo&quot;</span>][<span class="st">&quot;leaderboard&quot;</span>][<span class="st">&quot;entry&quot;</span>]</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a>    <span class="cf">if</span> <span class="kw">not</span> scores <span class="kw">is</span> Array:</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a>        <span class="cf">return</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> scores:</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a>        <span class="va">$Names</span>.text <span class="op">+=</span> i[<span class="st">&quot;name&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a>        <span class="va">$Scores</span>.text <span class="op">+=</span> i[<span class="st">&quot;score&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">func</span> <span class="fu">_on_HTTPRequest_request_completed</span>(result, response_code, headers, body):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>    <span class="cf">if</span> result <span class="op">!=</span> HTTPRequest.RESULT_SUCCESS:</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>        <span class="cf">return</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>    <span class="kw">var</span> json  <span class="op">=</span> JSON.<span class="fu">parse</span>(body.<span class="fu">get_string_from_utf8</span>())</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>    <span class="cf">if</span> json.error <span class="op">!=</span> OK:</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>        <span class="cf">return</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>    <span class="kw">var</span> scores <span class="op">=</span> json.result[<span class="st">&quot;dreamlo&quot;</span>][<span class="st">&quot;leaderboard&quot;</span>][<span class="st">&quot;entry&quot;</span>]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>    <span class="cf">if</span> <span class="kw">not</span> scores <span class="kw">is</span> Array:</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>        <span class="cf">return</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> scores:</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>        <span class="va">$Names</span>.text <span class="op">+=</span> i[<span class="st">&quot;name&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>        <span class="va">$Scores</span>.text <span class="op">+=</span> i[<span class="st">&quot;score&quot;</span>] <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
 <h2 data-number="2.6" id="challenges"><span class="header-section-number">2.6</span> Challenges</h2>
 <p>Show the user what is going on. Display <strong>Downloading Scores</strong> when the scene loads, and then display <strong>Scores Downloaded</strong> when they have downloaded successfully. If one of the errors happens, display what the error is.</p>
 <p>Handle the case when the table contains only one score. Hint:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="cf">if</span> scores <span class="kw">is</span> Dictionary:</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>    <span class="va">$Names</span>.text <span class="op">==</span> scores[<span class="st">&quot;name&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="cf">if</span> scores <span class="kw">is</span> Dictionary:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>    <span class="va">$Names</span>.text <span class="op">==</span> scores[<span class="st">&quot;name&quot;</span>]</span></code></pre></div>
 <p>Add additional error checks. For example, what would happen if the JSON did not contain an entry for <code>leaderboard</code>?</p>
 <p>Dreamlo also allows a time to be submitted along with the score. This is useful for games with a timer. Submit times for your game.</p></div>
             <div class="d-none d-xl-block col-xl-2 bd-toc">
@@ -485,7 +492,7 @@
 <ul>
 <li><a href="#dreamlo-sign-up"><span class="toc-section-number">2.1</span> Dreamlo sign-up</a></li>
 <li><a href="#submitting-scores-manually"><span class="toc-section-number">2.2</span> Submitting scores manually</a></li>
-<li><a href="#submitting-scores-programatically"><span class="toc-section-number">2.3</span> Submitting scores programatically</a></li>
+<li><a href="#submitting-scores-programmatically"><span class="toc-section-number">2.3</span> Submitting scores programmatically</a></li>
 <li><a href="#downloading-the-scores-programmatically"><span class="toc-section-number">2.4</span> Downloading the scores programmatically</a></li>
 <li><a href="#error-handling"><span class="toc-section-number">2.5</span> Error handling</a></li>
 <li><a href="#challenges"><span class="toc-section-number">2.6</span> Challenges</a></li>

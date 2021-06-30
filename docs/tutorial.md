@@ -415,18 +415,21 @@ Display ranking number 1, 2, 3, etc next to the names.
 
 What do you do when there are too many scores to fit on the screen?  Delete the lowest ones?  Or provide buttons to scroll up and down?
 
+
 # Online leaderboards
 
 Saving to a local file is very useful, but if you want to compare your scores with your friends?  You can't read files saved to your friends'
 computers, so instead you need to store all the scores on a computer on the Internet.  This is called a *server*.  Then as well as saving
 your score locally, you also send it to the server, like this:
 
-DIAGRAM
+![Sending the high score](server1.png){width=50%}
+
 
 The server saves your score along with all the scores of everybody else.  Then when you want to display the scores, you
 send a request to the server to retrieve them:
 
-DIAGRAM
+![Requesting the high scores](server2.png){width=50%}
+
 
 Usually I would not suggest relying on third party servers for your game.
 
@@ -440,14 +443,12 @@ our own replacement.  (That would would be the topic for another tutorial.  For 
 
 In your web browser, go to the website [dreamlo.com](http://dreamlo.com/).
 
-![dreamlo website](dreamlo1.png){width=50%}
+![dreamlo website](dreamlo1.png){width=70%}
 
 Click **Get Yours Now** button.
 
 ![You will be given a private URL.  Copy and paste it into a document, or add it to your bookmarks.  You must not lose
-it and you must not give it to anyone else.](dreamlo2.png){width=50%}
-
-
+it and you must not give it to anyone else.](dreamlo2.png){width=70%}
 
 In Godot, open *globals.gd*.  Add these two variables, but **rather than using my values, copy and paste the codes given
 to you on the left side of the web page.**
@@ -459,12 +460,12 @@ var private_code = "iRJrbvqSmkykd5aQBcXlAgm6EWSo3SekmWhWF5W-zfkA"
 
 ## Submitting scores manually
 
-Copy this URL into a new web browser window and press enter, but replace the code with your *private* code.  (You can see this example on the dreamlo page with the correct
+Copy this URL into a new web browser window and press enter, but replace the code with your *private* code.  (You can see this example on your private dreamlo page with the correct
 code already filled in)
 
     http://dreamlo.com/lb/Sv3NeBzS0016IwMfZjGudTESQhkHwEpQ/add/Carmine/100
 
-IMAGE
+![](dreamlo3.png){ width=75% }
 
 You should get a response that says *OK* or similar.  You have submitted the score of 100 for player Carmine.
 Go ahead and submit a few more scores for other players.
@@ -476,29 +477,36 @@ code already filled in.)
 
 You will get a response that looks something like this:
 
+![](dreamlo4.png){ width=75% }
+
+Here it is with nicer indentation:
+
 ```json
 {"dreamlo":
   {"leaderboard":
-    {"entry":[
-      {"name":"Carmine","score":"100","seconds":"0"},
-      {"name":"Bob","score":"10","seconds":"0"}
-    ]}
+    {"entry":
+      [
+        {"name":"Carmine","score":"100","seconds":"0"},
+        {"name":"Bob","score":"10","seconds":"0"}
+      ]
+    }
   }
 }
 ```
 
-IMAGE
 
 This is just plain text, but it is formatted in a format called *JSON* which makes it easy for us to write a program
-that processes.  The names of the objects are important and we will need them later.
+that processes.  The names of the objects are important and we will need them later.  Also note that curly brackets mean objects and
+square brackets mean lists/arrays.
 
-## Submitting scores programatically
 
-1. Open the *gameover.tscn* scene.  Right click on the root node and add a child node.  Choose *HTTPRequest* as the kind of node.
+## Submitting scores programmatically
 
-2. Open *gameover.gd* script and change the *on_LineEdit_text_entered* function so it looks like this (3 new lines):
+1. Open the **gameover.tscn** scene.  Right click on the root node and add a child node.  Choose **HTTPRequest** as the kind of node.
 
-```gdscript
+2. Open **gameover.gd** script and change the **on_LineEdit_text_entered** function so it looks like this (3 new lines):
+
+```{emphasize=5-7}
 func _on_LineEdit_text_entered(new_text):
 	Globals.scores.append(Globals.score)
 	Globals.names.append(new_text)
@@ -518,13 +526,13 @@ func _on_LineEdit_text_entered(new_text):
 to finish.  How long do we have to wait?  It depends on the network speed.  So we will next use a *callback function* that is called
 for us by Godot when the request is completed.
 
-4. **Delete** this line from the *on_LineEdit_text_entered* function.
+4. **DELETE** this line from the **on_LineEdit_text_entered** function.
 
 ```gdscript
 	get_tree().change_scene("res://score_table.tscn")
 ```
 
-5. Click on the *HTTPRequest* node.  Click *Node* next to *Inspector* on the right to view the *Signals*.  Double click the *request_complated* signal.
+5. Click on the **HTTPRequest** node.  Click *Node* next to *Inspector* on the right to view the **Signals**.  Double click the **request_complated** signal.
 Press *connect*.
    
 Edit the function it generates to look like this:
@@ -541,20 +549,20 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 
 1. Create a new scene.
 
-2. Select *User Interface* for  the root node.
+2. Select **User Interface** for  the root node.
 
 3. Rename the root node to `OnlineScoreTable`.
 
 4. Save the scene as `online_score_table.tscn`.
 
-5. Add a *Label* child node to the root node.
+5. Add a **Label** child node to the root node.
     * Rename it to `Names`
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, click **Custom Fonts** and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
       font field.
 
-5. Add a *Label* child node to the root node.
+5. Add a **Label** child node to the root node.
     * Rename it to `Scores`
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, click **Custom Fonts** and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
       font field.
 
 6. Position the two labels side by side like this:
@@ -562,15 +570,15 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 ![](tablenames.png){ width=50% }
 ![](tablescores.png){ width=50% }
 
-7. Right click on the root node and *Attach script*.  Press *create*.  Edit the ready function so it looks like this:
+7. Right click on the root node and **Attach script**.  Press **create**.  Edit the ready function so it looks like this:
 
 ```gdscript
 func _ready():
   $HTTPRequest.request("http://dreamlo.com/lb/"+Globals.public_code+"/json")
 ```
 
-8. Click on the *HTTPRequest* node.  Click *Node* next to *Inspector* on the right to view the *Signals*.  Double click the *request_complated* signal.
-      Press *connect*.
+8. Click on the **HTTPRequest** node.  Click *Node* next to *Inspector* on the right to view the **Signals**.  Double click the **request_complated** signal.
+      Press **connect**.
 
 Edit the function it generates to look like this:
 
@@ -586,16 +594,16 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
    Note how we needed the field names from the JSON output in order to tell Godot how to pull out the data from
 the text and put it in a list for us.
 
-8. Go to the *title_screen.tscn* scene.
+8. Go to the **title_screen.tscn** scene.
 
-9. Right click on the *VBoxContainer* node and add a *Button* child node.
+9. Right click on the **VBoxContainer** node and add a **Button** child node.
     * Rename it to `OnlineHighScoreButton`.
-    * In the Inspector, enter into the *Text* field: **ONLINE SCORES**.
-    * In the Inspector, click *Custom Fonts* and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
+    * In the Inspector, enter into the **Text** field: **ONLINE SCORES**.
+    * In the Inspector, click **Custom Fonts** and then drag the `font.tres` file from the FileSystem (bottom left of screen) into the `[empty]`
       font field.
 
 
-10. Click on *Node* to the right of the *Inspector* to view the *Signals*.  Double click on `pressed`.  Press `connect`.
+10. Click on *Node* to the right of the *Inspector* to view the **Signals**.  Double click on **pressed**.  Press **connect**.
 
 Edit the function that is created to look like this:
 
@@ -645,6 +653,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		$Names.text += i["name"] + '\n'
 		$Scores.text += i["score"] + '\n'
 ```
+
 
 ## Challenges
 
